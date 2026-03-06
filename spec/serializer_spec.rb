@@ -4,16 +4,16 @@ require 'spec_helper'
 require 'active_model'
 require 'rails_react_errors'
 
+class DummyUser
+  include ActiveModel::Model
+  include ActiveModel::Validations
+
+  attr_accessor :email
+
+  validates :email, presence: true
+end
+
 RSpec.describe RailsReactErrors::Serializer do
-  class DummyUser
-    include ActiveModel::Model
-    include ActiveModel::Validations
-
-    attr_accessor :email
-
-    validates :email, presence: true
-  end
-
   describe '.validation' do
     it 'returns validation error payload' do
       user = DummyUser.new(email: nil)

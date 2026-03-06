@@ -8,9 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors = ['Manish0407']
   spec.email = ['manish.prajapati0492@gmail.com']
 
-  spec.summary       = 'Consistent error responses for Rails APIs used by React frontends'
-  spec.description   = 'rails_react_errors standardizes validation and API error responses in a React-friendly JSON format.'
-  spec.homepage      = 'https://github.com/Manish0407/rails_react_errors'
+  spec.summary = 'Consistent error responses for Rails APIs used by React frontends'
+  spec.description = 'rails_react_errors standardizes validation and API error ' \
+                     'responses in a React-friendly JSON format.'
+  spec.homepage = 'https://github.com/Manish0407/rails_react_errors'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2.0'
 
