@@ -6,27 +6,27 @@ module RailsReactErrors
       new.validation(record)
     end
 
-    def self.not_found(message = "Record not found")
+    def self.not_found(message = 'Record not found')
       new.not_found(message)
     end
 
-    def self.unauthorized(message = "Unauthorized")
+    def self.unauthorized(message = 'Unauthorized')
       new.unauthorized(message)
     end
 
-    def self.forbidden(message = "Forbidden")
+    def self.forbidden(message = 'Forbidden')
       new.forbidden(message)
     end
 
-    def self.server_error(message = "Something went wrong")
+    def self.server_error(message = 'Something went wrong')
       new.server_error(message)
     end
 
     def validation(record)
       {
         success: false,
-        message: "Validation failed",
-        code: "VALIDATION_ERROR",
+        message: 'Validation failed',
+        code: 'VALIDATION_ERROR',
         errors: serialized_errors(record)
       }
     end
@@ -35,7 +35,7 @@ module RailsReactErrors
       {
         success: false,
         message: message,
-        code: "NOT_FOUND",
+        code: 'NOT_FOUND',
         errors: {}
       }
     end
@@ -44,7 +44,7 @@ module RailsReactErrors
       {
         success: false,
         message: message,
-        code: "UNAUTHORIZED",
+        code: 'UNAUTHORIZED',
         errors: {}
       }
     end
@@ -53,7 +53,7 @@ module RailsReactErrors
       {
         success: false,
         message: message,
-        code: "FORBIDDEN",
+        code: 'FORBIDDEN',
         errors: {}
       }
     end
@@ -62,7 +62,7 @@ module RailsReactErrors
       {
         success: false,
         message: message,
-        code: "INTERNAL_SERVER_ERROR",
+        code: 'INTERNAL_SERVER_ERROR',
         errors: {}
       }
     end

@@ -13,9 +13,9 @@ module RailsReactErrors
         base.rescue_from ActionController::ParameterMissing, with: :handle_parameter_missing
       end
 
-      if RailsReactErrors.configuration.rescue_standard_error
-        base.rescue_from StandardError, with: :handle_internal_server_error
-      end
+      return unless RailsReactErrors.configuration.rescue_standard_error
+
+      base.rescue_from StandardError, with: :handle_internal_server_error
     end
 
     private
@@ -28,14 +28,14 @@ module RailsReactErrors
       render json: {
         success: false,
         message: exception.message,
-        code: "PARAMETER_MISSING",
+        code: 'PARAMETER_MISSING',
         errors: {}
       }, status: :bad_request
     end
 
     def handle_internal_server_error(exception)
       log_exception(exception) if RailsReactErrors.configuration.log_errors
-      render_server_error("Something went wrong")
+      render_server_error('Something went wrong')
     end
 
     def log_exception(exception)

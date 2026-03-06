@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "rails_react_errors/version"
-require_relative "rails_react_errors/configuration"
-require_relative "rails_react_errors/serializer"
-require_relative "rails_react_errors/renderer"
-require_relative "rails_react_errors/controller"
+require_relative 'rails_react_errors/version'
+require_relative 'rails_react_errors/configuration'
+require_relative 'rails_react_errors/serializer'
+require_relative 'rails_react_errors/renderer'
+require_relative 'rails_react_errors/controller'
 
 module RailsReactErrors
   class Error < StandardError; end
@@ -22,4 +22,4 @@ module RailsReactErrors
   end
 end
 
-require_relative "rails_react_errors/railtie" if defined?(Rails::Railtie)
+require_relative 'rails_react_errors/railtie' if defined?(Rails::Railtie)

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "rails/railtie"
+require 'rails/railtie'
 
 module RailsReactErrors
   class Railtie < Rails::Railtie
-    initializer "rails_react_errors.configure_controller" do
+    initializer 'rails_react_errors.configure_controller' do
       ActiveSupport.on_load(:action_controller_api) do
         include RailsReactErrors::Renderer
       end
