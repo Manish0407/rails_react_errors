@@ -4,12 +4,14 @@ module RailsReactErrors
   class Configuration
     attr_accessor :include_full_messages,
                   :rescue_standard_error,
-                  :log_errors
+                  :log_errors,
+                  :custom_exceptions
 
     def initialize
       @include_full_messages = true
       @rescue_standard_error = false
       @log_errors = true
+      @custom_exceptions = {}
     end
   end
 end

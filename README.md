@@ -24,7 +24,7 @@ bundle install
 
 ---
 
-## Usage
+## Quick Setup
 
 Include the controller module in your base controller.
 
@@ -34,22 +34,54 @@ class ApplicationController < ActionController::API
 end
 ```
 
+That's it. Your Rails API will now automatically return standardized error responses.
+
 ---
 
-## Example
+## Automatic Exception Handling
 
-Controller example:
+The gem automatically handles common Rails exceptions and converts them into consistent JSON responses.
+
+Supported exceptions:
+
+* `ActiveRecord::RecordNotFound`
+* `ActiveRecord::RecordInvalid`
+* `ActiveRecord::RecordNotUnique`
+* `ActionController::ParameterMissing`
+* `JSON::ParserError`
+* `StandardError` *(optional)*
+
+Example:
+
+```ruby
+class UsersController < ApplicationController
+  def show
+    user = User.find(params[:id])
+    render json: user
+  end
+end
+```
+
+If the record does not exist:
+
+```json
+{
+  "success": false,
+  "message": "Couldn't find User with 'id'=99",
+  "code": "NOT_FOUND",
+  "errors": {}
+}
+```
+
+---
+
+## Validation Error Example
 
 ```ruby
 class UsersController < ApplicationController
   def create
-    user = User.new(user_params)
-
-    if user.save
-      render json: { success: true, data: user }, status: :created
-    else
-      render_validation_error(user)
-    end
+    user = User.create!(user_params)
+    render json: { success: true, data: user }, status: :created
   end
 
   private
@@ -60,7 +92,7 @@ class UsersController < ApplicationController
 end
 ```
 
-Response example:
+Response:
 
 ```json
 {
@@ -75,14 +107,71 @@ Response example:
 
 ---
 
-## Available Helpers
+## JSON Parsing Error
+
+If an invalid JSON payload is sent:
+
+```json
+{ email: "test"
+```
+
+Response:
+
+```json
+{
+  "success": false,
+  "message": "Invalid JSON payload",
+  "code": "INVALID_JSON",
+  "errors": {}
+}
+```
+
+---
+
+## Available Helper Methods
+
+You can also manually render errors if needed.
 
 ```ruby
 render_validation_error(record)
 render_not_found_error("User not found")
-render_unauthorized_error
-render_forbidden_error
-render_server_error
+render_parameter_missing_error("param is missing")
+render_conflict_error("Duplicate record")
+render_server_error("Something went wrong")
+render_error(message:, code:, status:, errors: {})
+```
+
+---
+
+## Custom Exception Mapping
+
+You can configure your own exceptions.
+
+```ruby
+RailsReactErrors.configure do |config|
+  config.custom_exceptions = {
+    "Pundit::NotAuthorizedError" => {
+      code: "FORBIDDEN",
+      status: :forbidden
+    },
+    "JWT::DecodeError" => {
+      code: "INVALID_TOKEN",
+      status: :unauthorized
+    }
+  }
+end
+```
+
+---
+
+## Enable Global Error Handling
+
+To automatically handle unexpected errors:
+
+```ruby
+RailsReactErrors.configure do |config|
+  config.rescue_standard_error = true
+end
 ```
 
 ---

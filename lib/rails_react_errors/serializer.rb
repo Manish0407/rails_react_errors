@@ -22,6 +22,18 @@ module RailsReactErrors
       new.server_error(message)
     end
 
+    def self.parameter_missing(message)
+      new.parameter_missing(message)
+    end
+
+    def self.conflict(message = 'Conflict')
+      new.conflict(message)
+    end
+
+    def self.invalid_json(message = 'Invalid JSON payload')
+      new.invalid_json(message)
+    end
+
     def validation(record)
       {
         success: false,
@@ -63,6 +75,33 @@ module RailsReactErrors
         success: false,
         message: message,
         code: 'INTERNAL_SERVER_ERROR',
+        errors: {}
+      }
+    end
+
+    def parameter_missing(message)
+      {
+        success: false,
+        message: message,
+        code: 'PARAMETER_MISSING',
+        errors: {}
+      }
+    end
+
+    def conflict(message)
+      {
+        success: false,
+        message: message,
+        code: 'CONFLICT',
+        errors: {}
+      }
+    end
+
+    def invalid_json(message)
+      {
+        success: false,
+        message: message,
+        code: 'INVALID_JSON',
         errors: {}
       }
     end

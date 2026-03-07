@@ -37,4 +37,15 @@ RSpec.describe RailsReactErrors::Serializer do
       expect(result[:code]).to eq('NOT_FOUND')
     end
   end
+
+  describe '.parameter_missing' do
+    it 'returns parameter missing payload' do
+      result = described_class.parameter_missing('param is missing or the value is empty: user')
+
+      expect(result[:success]).to eq(false)
+      expect(result[:message]).to eq('param is missing or the value is empty: user')
+      expect(result[:code]).to eq('PARAMETER_MISSING')
+      expect(result[:errors]).to eq({})
+    end
+  end
 end
