@@ -49,7 +49,7 @@ Supported exceptions:
 * `ActiveRecord::RecordNotUnique`
 * `ActionController::ParameterMissing`
 * `JSON::ParserError`
-* `StandardError` *(optional)*
+* `StandardError`
 
 Example:
 
